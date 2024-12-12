@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route ,useNavigate} from 'react-router-dom';
 import One from './components/One';
 import Two from './components/Two';
@@ -26,6 +26,8 @@ const Home = () => {
 
 // Main App component
 const App = () => {
+ 
+
   return (
     <>    <Header />
     <Routes>

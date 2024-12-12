@@ -1,4 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron');
+console.log(contextBridge);
+console.log(ipcRenderer);
+
 
 contextBridge.exposeInMainWorld('electronAPI', {
   navigateBack: () => ipcRenderer.send('navigate-back'),

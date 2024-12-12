@@ -7,7 +7,7 @@ const Two = () => {
       <img src={img} alt="" />
       {/* Navbar */}
       <nav className="flex justify-between p-6">
-        <div className="font-bold text-xl">My Landing Page2 updarte happend </div>
+        <div className="font-bold text-xl">My Landing Page2 updarte happend jithin c the developer</div>
         <div className="space-x-6">
           <a href="#features" className="hover:text-gray-200">Features</a>
           <a href="#pricing" className="hover:text-gray-200">Pricing</a>

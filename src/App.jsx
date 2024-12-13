@@ -6,7 +6,12 @@ import Three from './components/Three';
 import Four from './components/Four';
 import Five from './components/Five';
 import Header from './components/Header';
-
+import Signup from './pages/authPages/SIgnup';
+import Login from './pages/authPages/Login';
+import ForgotPass from './pages/authPages/ForgotPassword'
+import CreatePassword from './pages/authPages/CreatePassword';
+import PassChangeSuccess from './pages/authPages/PassChangeSuccess';
+import  './App.css'
 // Define your Home component
 const Home = () => {
   const navigate = useNavigate(); // Call the hook at the top of the function
@@ -29,15 +34,16 @@ const App = () => {
  
 
   return (
-    <>    <Header />
+    <>  
+      {/* <Header /> */}
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/one" element={<One />} />
-      <Route path="/two" element={<Two />} />
-      <Route path="/three" element={<Three />} />
-      <Route path="/four" element={<Four />} />
-      <Route path="/five" element={<Five />} />
-    </Routes></>
+      <Route path="/" element={<Signup />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/forgot-password" element={<ForgotPass />} />
+      <Route path="/new-password" element={<CreatePassword />} />
+      <Route path="/password-success" element={<PassChangeSuccess />} />
+    </Routes>
+    </>
   
   );
 };

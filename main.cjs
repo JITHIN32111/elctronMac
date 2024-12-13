@@ -1,8 +1,14 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
+const log = require('electron-log');
 
-process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
+// Configure logging
+log.transports.file.resolvePath = () =>
+  path.join("C:/Users/seclob/Desktop/super/electron/elec", 'logs/main.log');
+
+// Log the app version
+log.info('App version: ' + app.getVersion());
 
 let mainWindow;
 
@@ -24,9 +30,11 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  log.info('App is ready.');
+
   createWindow();
 
-  // Check for updates after app is ready
+  // Check for updates once the app is ready
   autoUpdater.checkForUpdatesAndNotify();
 
   app.on('activate', () => {
@@ -34,30 +42,50 @@ app.whenReady().then(() => {
   });
 });
 
-// Handle navigation events
-ipcMain.on('navigate-back', () => {
-  if (mainWindow.webContents.canGoBack()) mainWindow.webContents.goBack();
-});
-
-ipcMain.on('navigate-forward', () => {
-  if (mainWindow.webContents.canGoForward()) mainWindow.webContents.goForward();
-});
-
 // Handle update events
-ipcMain.on('install-update', () => {
-  autoUpdater.quitAndInstall();
+autoUpdater.on('checking-for-update', () => {
+  log.info('Checking for updates...');
+  if (mainWindow) mainWindow.webContents.send('checking');
 });
 
 autoUpdater.on('update-available', () => {
-  mainWindow.webContents.send('update-available');
+  log.info('Update available.');
+  if (mainWindow) mainWindow.webContents.send('update-available');
 });
 
+autoUpdater.on('update-not-available', () => {
+  log.info('Update not available.');
+  if (mainWindow) mainWindow.webContents.send('update-available');
+});
+autoUpdater.on('download-progress', (progressTrack) => {
+  // Log progress details
+  log.info('Download progress:', progressTrack);
+
+  try {
+    // Send progress details to the renderer
+    if (mainWindow) {
+      mainWindow.webContents.send('download-progress', {
+        percent: progressTrack.percent,
+        transferred: progressTrack.transferred,
+        total: progressTrack.total,
+        bytesPerSecond: progressTrack.bytesPerSecond,
+      });
+    }
+  } catch (error) {
+    // Log any errors that occur
+    log.error('Error in download-progress handler:', error);
+  }
+});
+
+
 autoUpdater.on('update-downloaded', () => {
-  mainWindow.webContents.send('update-downloaded');
+  log.info('Update downloaded.');
+  if (mainWindow) mainWindow.webContents.send('update-downloaded');
 });
 
 autoUpdater.on('error', (error) => {
-  mainWindow.webContents.send('update-error', error.message);
+  log.error('Update error: ', error);
+  if (mainWindow) mainWindow.webContents.send('update-error', error.message);
 });
 
 app.on('window-all-closed', () => {

@@ -1,7 +1,7 @@
 import axiosConfig from "../config/axiosConfig";
 const authAPI = () => {
   const doLogin = async (data) => {
-    const res = await axiosConfig.post("/admin/login", data);
+    const res = await axiosConfig.post("/user/login", data);
     return res;
   };
 

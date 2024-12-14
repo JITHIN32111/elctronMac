@@ -1,7 +1,7 @@
 {
     "name": "elec",
     "private": false,
-    "version": "3.0.6",
+    "version": "3.0.7",
     "type": "module",
     "main": "main.cjs",
     "scripts": {
@@ -18,11 +18,15 @@
     },
     "dependencies": {
         "@reduxjs/toolkit": "^2.5.0",
+        "aos": "^2.3.4",
         "axios": "^1.7.9",
+        "chart.js": "^4.4.7",
         "electron-log": "^5.2.4",
         "electron-updater": "^6.3.9",
         "formik": "^2.4.6",
         "react": "^18.3.1",
+        "react-chartjs-2": "^5.2.0",
+        "react-datepicker": "^7.5.0",
         "react-dom": "^18.3.1",
         "react-hot-toast": "^2.4.1",
         "react-icons": "^5.4.0",

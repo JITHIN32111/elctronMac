@@ -2,7 +2,11 @@
 body {
   font-family: 'Manrope', sans-serif;
 }
-  
+.adlam-display {
+  font-family: 'ADLaM Display', sans-serif;
+  font-weight: 400; /* Adjust weight if needed */
+}
+
 .sidebar {
   transition: width 0.3s ease, opacity 0.3s ease;
 }

@@ -35,51 +35,53 @@ const Login = () => {
       onSubmit: async (values) => {
         console.log(values);
         
-        // try {
-        //   setLoading(true);
-        //   validateEmail();
-        //   const data = {
-        //     email: values.email,
-        //     password: values.password,
-        //   };
-        //   const res = await doLogin(data);
-        //   if (res.status === 200) {
-        //     toast.success("Login Success!", {
-        //       style: {
-        //         background: "#72A10F",
-        //         color: "#fff",
-        //       },
-        //     });
+        try {
+          setLoading(true);
+          validateEmail();
+          const data = {
+            email: values.email,
+            password: values.password,
+          };
+          const res = await doLogin(data);
+          console.log(res);
+          
+          if (res.status === 200) {
+            toast.success("Login Success!", {
+              style: {
+                background: "#72A10F",
+                color: "#fff",
+              },
+            });
 
-        //     // Dispatch the login action
-        //     const token = res?.data?.token;
-        //     const id = res?.data?.AdminId;
-        //     const adminName = res?.data?.Admin;
-        //     const taken = res?.data?.isAdminPackage;
+            // Dispatch the login action
+            const token = res?.data?.token;
+            const id = res?.data?.AdminId;
+            const adminName = res?.data?.Admin;
+            const taken = res?.data?.isAdminPackage;
 
-        //     dispatch(login({ token, id, adminName, taken }));
-        //     const profileFetch = await dispatch(fetchAdminProfile()).unwrap();
-        //     console.log(profileFetch, "profileFetch");
-        //     navigate("/admin");
+            dispatch(login({ token, id, adminName, taken }));
+            const profileFetch = await dispatch(fetchAdminProfile()).unwrap();
+            console.log(profileFetch, "profileFetch");
+            navigate("/admin");
 
-        //     // if (profileFetch?.data?.isAdminPackage) {
-        //     //   navigate("/admin/");
-        //     // } else {
-        //     //   navigate("/admin");
-        //     // }
-        //   }
-        // } catch (err) {
-        //   if (
-        //     err.response &&
-        //     (err.response.status === 404 || err.response.status === 401)
-        //   ) {
-        //     toast.error(err.response.data.message);
-        //   } else {
-        //     toast.error("Server error");
-        //   }
-        // } finally {
-        //   setLoading(false);
-        // }
+            // if (profileFetch?.data?.isAdminPackage) {
+            //   navigate("/admin/");
+            // } else {
+            //   navigate("/admin");
+            // }
+          }
+        } catch (err) {
+          if (
+            err.response &&
+            (err.response.status === 404 || err.response.status === 401)
+          ) {
+            toast.error(err.response.data.message);
+          } else {
+            toast.error("Server error");
+          }
+        } finally {
+          setLoading(false);
+        }
       },
     });
 
@@ -207,7 +209,7 @@ const Login = () => {
               <div>
                 <button
                   type="submit"
-                  className="w-full text-sm xlx:text-[16px] mt-5 bg-green-950 hover:bg-semiLiteGreen text-white font-medium py-3 rounded-lg shadow-md"
+                  className="w-full text-sm xlx:text-[16px] mt-5 bg-green-950 hover:bg-liteGreen text-white font-medium py-3 rounded-lg shadow-md"
                   disabled={loading}
                 >
                   {loading ? "Logging In..." : "Login"}
